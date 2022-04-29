@@ -1,4 +1,4 @@
-const get = async () => {
+const get = async (req, res) => {
 
     return res.json({
         status: "OK"
