@@ -1,3 +1,4 @@
+const axios = require('axios');
 const puppeteer = require('puppeteer');
 
 export const getQuote = async (req: { query: { source: any; }; }, res: { send: (arg0: { Error: unknown; }) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: { buy_price: number; sell_price: number; source: any; }): any; new(): any; }; }; }) => {
@@ -154,12 +155,80 @@ export const getAverage = async (req: any, res: { send: (arg0: { Error: unknown;
     }
 };
 
-export const getSlippage = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { Status: string; }): void; new(): any; }; }; send: (arg0: { Error: unknown; }) => void; }) => {
+export const getSlippage = async (req: any, res: any) => {
     try {
 
-        res.status(200).send({
-            "Status": "OK"
+        let averageBuyPrice: number;
+        let averageSellPrice: number;
+
+        let ambitoQuote;
+        let cronistaQuote;
+        let dolarhoyQuote;
+
+        const quotesArray = [];
+
+        try {
+
+            const { data } = await axios.get('http://localhost:3008/api/average');
+            averageBuyPrice = data.average_buy_price;
+            averageSellPrice = data.average_sell_price;
+
+        } catch (err) {
+            return res.send({
+                "Error": err
+            })
+        }
+
+        try {
+
+            const { data } = await axios.get('http://localhost:3008/api/quotes?source=ambito');
+            ambitoQuote = data;
+            quotesArray.push(ambitoQuote)
+
+        } catch (err) {
+            return res.send({
+                "Error": err
+            })
+        }
+
+        try {
+
+            const { data } = await axios.get('http://localhost:3008/api/quotes?source=cronista');
+            cronistaQuote = data;
+            quotesArray.push(cronistaQuote)
+
+        } catch (err) {
+            return res.send({
+                "Error": err
+            })
+        };
+
+        try {
+
+            const { data } = await axios.get('http://localhost:3008/api/quotes?source=dolarhoy');
+            dolarhoyQuote = data;
+            quotesArray.push(dolarhoyQuote)
+
+        } catch (err) {
+            return res.send({
+                "Error": err
+            })
+        }
+
+        const getSlippagePercentage = (ave: number, quote: number) => {
+            const result = quote - ave;
+            return ((result / quote) * 100).toFixed(2);
+        }
+
+        const slippageArray = quotesArray.map(e => {
+            return {
+                "buy_price_slippage": getSlippagePercentage(averageBuyPrice, e.buy_price),
+                "sell_price_slippage": getSlippagePercentage(averageSellPrice, e.sell_price),
+                "source": e.source
+            }
         })
+
+        return res.status(200).send(slippageArray)
 
     } catch (err) {
         res.send({

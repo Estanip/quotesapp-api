@@ -5,9 +5,6 @@ const path = require('path');
 
 const app = express();
 
-console.log("DIRNAME",__dirname)
-
-
 // Settings
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
