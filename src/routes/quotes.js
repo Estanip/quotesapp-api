@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const router = Router();
 
-const { get } = require('../controllers/Quotes/index');
+const { getQuote } = require('../controllers/Quotes/index');
 
-router.get('/', get);  
+router.get('/', getQuote);  
 
 module.exports = router;
