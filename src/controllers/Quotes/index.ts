@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-export const getQuote = async (req: { query: { source: any; }; }, res: { json: (arg0: { Error: string; }) => any; status: (arg0: number) => { (): any; new(): any; send: { (arg0: { buy_price?: number; sell_price?: number; source?: any; Error?: unknown; }): void; new(): any; }; }; }) => {
+export const getQuote = async (req: { query: { source: any; }; }, res: { send: (arg0: { Error: unknown; }) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: { buy_price: number; sell_price: number; source: any; }): any; new(): any; }; }; }) => {
 
     const { source } = req.query;
 
@@ -52,7 +52,7 @@ export const getQuote = async (req: { query: { source: any; }; }, res: { json: (
             sell_price = parseFloat(sellPrice[0].replace('$', '').replace(',', '.'))
 
         } else {
-            return res.json({
+            return res.send({
                 "Error": "Recurso no encontrado"
             })
         }
@@ -66,13 +66,13 @@ export const getQuote = async (req: { query: { source: any; }; }, res: { json: (
         })
 
     } catch (err) {
-        res.status(500).send({
+        res.send({
             "Error": err
         })
     }
 };
 
-export const getAverage = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { Error?: unknown; average_buy_price?: number; average_sell_price?: number; }): void; new(): any; }; }; }) => {
+export const getAverage = async (req: any, res: { send: (arg0: { Error: unknown; }) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: { average_buy_price: number; average_sell_price: number; }): any; new(): any; }; }; }) => {
 
     try {
 
@@ -95,7 +95,7 @@ export const getAverage = async (req: any, res: { status: (arg0: number) => { ()
             sellPrices.push(parseFloat(sellPrice[0].replace(',', '.')))
 
         } catch (err) {
-            res.status(500).send({
+            res.send({
                 "Error": err
             })
         }
@@ -111,7 +111,7 @@ export const getAverage = async (req: any, res: { status: (arg0: number) => { ()
             sellPrices.push(parseFloat(sellPrice[0].replace('$', '')))
 
         } catch (err) {
-            res.status(500).send({
+            res.send({
                 "Error": err
             })
         }
@@ -127,7 +127,7 @@ export const getAverage = async (req: any, res: { status: (arg0: number) => { ()
             sellPrices.push(parseFloat(sellPrice[0].replace('$', '').replace(',', '.')))
 
         } catch (err) {
-            res.status(500).send({
+            res.send({
                 "Error": err
             })
         }
@@ -148,13 +148,13 @@ export const getAverage = async (req: any, res: { status: (arg0: number) => { ()
         })
 
     } catch (err) {
-        res.status(500).send({
+        res.send({
             "Error": err
         })
     }
 };
 
-export const getSlippage = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { Status?: string; Error?: unknown; }): void; new(): any; }; }; }) => {
+export const getSlippage = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { Status: string; }): void; new(): any; }; }; send: (arg0: { Error: unknown; }) => void; }) => {
     try {
 
         res.status(200).send({
@@ -162,7 +162,7 @@ export const getSlippage = async (req: any, res: { status: (arg0: number) => { (
         })
 
     } catch (err) {
-        res.status(500).send({
+        res.send({
             "Error": err
         })
     }
