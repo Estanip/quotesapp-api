@@ -1,6 +1,8 @@
 const axios = require('axios');
 const puppeteer = require('puppeteer');
 
+require('dotenv').config();
+
 export const getQuote = async (req: { query: { source: any; }; }, res: any) => {
 
     const { source } = req.query;
@@ -169,7 +171,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get('http://localhost:3008/api/average');
+            const { data } = await axios.get(`${process.env.API_PROD}/average`);
             averageBuyPrice = data.average_buy_price;
             averageSellPrice = data.average_sell_price;
 
@@ -181,7 +183,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get('http://localhost:3008/api/quotes?source=ambito');
+            const { data } = await axios.get(`${process.env.API_PROD}/quotes?source=ambito`);
             ambitoQuote = data;
             quotesArray.push(ambitoQuote)
 
@@ -193,7 +195,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get('http://localhost:3008/api/quotes?source=cronista');
+            const { data } = await axios.get(`${process.env.API_PROD}/quotes?source=cronista`);
             cronistaQuote = data;
             quotesArray.push(cronistaQuote)
 
@@ -205,7 +207,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get('http://localhost:3008/api/quotes?source=dolarhoy');
+            const { data } = await axios.get(`${process.env.API_PROD}/quotes?source=dolarhoy`);
             dolarhoyQuote = data;
             quotesArray.push(dolarhoyQuote)
 
