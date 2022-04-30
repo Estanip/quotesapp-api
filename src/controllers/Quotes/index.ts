@@ -1,7 +1,7 @@
 const axios = require('axios');
 const puppeteer = require('puppeteer');
 
-export const getQuote = async (req: { query: { source: any; }; }, res: { send: (arg0: { Error: unknown; }) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: { buy_price: number; sell_price: number; source: any; }): any; new(): any; }; }; }) => {
+export const getQuote = async (req: { query: { source: any; }; }, res: any) => {
 
     const { source } = req.query;
 
@@ -73,7 +73,7 @@ export const getQuote = async (req: { query: { source: any; }; }, res: { send: (
     }
 };
 
-export const getAverage = async (req: any, res: { send: (arg0: { Error: unknown; }) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: { average_buy_price: number; average_sell_price: number; }): any; new(): any; }; }; }) => {
+export const getAverage = async (req: any, res: any) => {
 
     try {
 
