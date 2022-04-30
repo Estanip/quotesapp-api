@@ -161,9 +161,9 @@ export const getSlippage = async (req: any, res: { status: (arg0: number) => { (
             "Status": "OK"
         })
 
-    } catch(err) {
+    } catch (err) {
         res.status(500).send({
             "Error": err
         })
     }
-}
+};
