@@ -11,6 +11,10 @@ const getQuote = async (req, res) => {
 
         if (source === 'ambito') {
             await page.goto('https://www.ambito.com/contenidos/dolar.html');
+        } else {
+            return res.json({
+                "Error": "Recurso no encontrado"
+            })
         }
 
         const url = await page.url();
