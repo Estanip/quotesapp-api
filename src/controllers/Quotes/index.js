@@ -6,7 +6,9 @@ const getQuote = async (req, res) => {
 
     try {
 
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({ 
+            args: ['--no-sandbox']
+        });
         const page = await browser.newPage();
 
         if (source === 'ambito') {
