@@ -1,9 +1,11 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require('path');
 
 const app = express();
-const router = require('./src/routes/index');
+
+console.log("DIRNAME",__dirname)
 
 
 // Settings
@@ -12,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 
 // Routes
-app.use(router);
+app.use('/api', require(path.join(__dirname, '/src/routes/quotes')));
 
 // Run server
 const port = process.env.PORT || 3008;
