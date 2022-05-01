@@ -219,7 +219,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         const getSlippagePercentage = (ave: number, quote: number) => {
             const result = quote - ave;
-            return ((result / quote) * 100).toFixed(2);
+            return +((result / quote) * 100).toFixed(2);
         }
 
         const slippageArray = quotesArray.map(e => {
