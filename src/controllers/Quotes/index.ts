@@ -70,7 +70,7 @@ export const getQuote = async (req: { query: { source: any; }; }, res: any) => {
 
     } catch (err) {
         res.send({
-            "Error": err
+            Error: err
         })
     }
 };
@@ -98,9 +98,7 @@ export const getAverage = async (req: any, res: any) => {
             sellPrices.push(parseFloat(sellPrice[0].replace(',', '.')))
 
         } catch (err) {
-            res.send({
-                "Error": err
-            })
+            console.log(err)
         }
 
         try {
@@ -114,9 +112,7 @@ export const getAverage = async (req: any, res: any) => {
             sellPrices.push(parseFloat(sellPrice[0].replace('$', '')))
 
         } catch (err) {
-            res.send({
-                "Error": err
-            })
+            console.log(err)
         }
 
         try {
@@ -130,9 +126,7 @@ export const getAverage = async (req: any, res: any) => {
             sellPrices.push(parseFloat(sellPrice[0].replace('$', '').replace(',', '.')))
 
         } catch (err) {
-            res.send({
-                "Error": err
-            })
+            console.log(err)
         }
 
         await browser.close();
@@ -152,7 +146,7 @@ export const getAverage = async (req: any, res: any) => {
 
     } catch (err) {
         res.send({
-            "Error": err
+            Error: err
         })
     }
 };
@@ -176,9 +170,7 @@ export const getSlippage = async (req: any, res: any) => {
             averageSellPrice = data.average_sell_price;
 
         } catch (err) {
-            return res.send({
-                "Error": err
-            })
+            console.log(err)
         }
 
         try {
@@ -188,9 +180,7 @@ export const getSlippage = async (req: any, res: any) => {
             quotesArray.push(ambitoQuote)
 
         } catch (err) {
-            return res.send({
-                "Error": err
-            })
+            console.log(err)
         }
 
         try {
@@ -200,9 +190,7 @@ export const getSlippage = async (req: any, res: any) => {
             quotesArray.push(cronistaQuote)
 
         } catch (err) {
-            return res.send({
-                "Error": err
-            })
+            console.log(err)
         };
 
         try {
@@ -212,9 +200,7 @@ export const getSlippage = async (req: any, res: any) => {
             quotesArray.push(dolarhoyQuote)
 
         } catch (err) {
-            return res.send({
-                "Error": err
-            })
+            console.log(err)
         }
 
         const getSlippagePercentage = (ave: number, quote: number) => {
@@ -234,7 +220,7 @@ export const getSlippage = async (req: any, res: any) => {
 
     } catch (err) {
         res.send({
-            "Error": err
+            Error: err
         })
     }
 };
