@@ -10,7 +10,9 @@ export const getQuotes = async (req: any, res: any) => {
         const browser = await puppeteer.launch({
             args: ['--no-sandbox']
         });
+
         const page = await browser.newPage();
+        await page.setDefaultNavigationTimeout(0);
 
         let quotesArray: any = [];
 
@@ -130,7 +132,9 @@ export const getQuote = async (req: { query: { source: any; }; }, res: any) => {
         const browser = await puppeteer.launch({
             args: ['--no-sandbox']
         });
+
         const page = await browser.newPage();
+        await page.setDefaultNavigationTimeout(0);
 
         let buyPrice;
         let sellPrice;
@@ -200,7 +204,9 @@ export const getAverage = async (req: any, res: any) => {
         const browser = await puppeteer.launch({
             args: ['--no-sandbox']
         });
+
         const page = await browser.newPage();
+        await page.setDefaultNavigationTimeout(0);
 
         const buyPrices = [];
         const sellPrices = [];
@@ -279,7 +285,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get(`${process.env.API_PROD}/average`);
+            const { data } = await axios.get(`${process.env.API_DEV}/average`);
             averageBuyPrice = data.average_buy_price;
             averageSellPrice = data.average_sell_price;
 
@@ -289,7 +295,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get(`${process.env.API_PROD}/quotes`);
+            const { data } = await axios.get(`${process.env.API_DEV}/quotes`);
             quotes = data;
 
         } catch (err) {
