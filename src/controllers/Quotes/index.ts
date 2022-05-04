@@ -310,8 +310,6 @@ export const getSlippage = async (req: any, res: any) => {
             }
         })
 
-        console.log(slippageArray)
-
         return res.status(200).send(slippageArray)
 
     } catch (err) {
