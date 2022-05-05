@@ -83,14 +83,10 @@ export const getQuotes = async (req: any, res: any) => {
     try {
 
         const browser = await puppeteer.launch({
-            'args': [
-                '--no-sandbox',
-                '--disable-setuid-sandbox'
-            ]
+            args: ['--no-sandbox']
         });
 
         const page = await browser.newPage();
-        await page.setDefaultNavigationTimeout(0);
 
         let quotesArray: any = [];
 
@@ -209,7 +205,7 @@ export const getAverage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get(`${process.env.API_PROD}/quotes`);
+            const { data } = await axios.get(`${process.env.API_DEV}/quotes`);
             quotes = data;
 
         } catch (err) {
@@ -227,7 +223,7 @@ export const getAverage = async (req: any, res: any) => {
         const getAverage = (array: any[]) => {
             let sum = array.reduce((prev: any, curr: any) => prev + curr, 0)
             return +(sum / array.length).toFixed(2);
-        };
+        }
 
         const averageBuyPrice = getAverage(buyPrices)
         const averageSellPrice = getAverage(sellPrices)
@@ -254,7 +250,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get(`${process.env.API_PROD}/average`);
+            const { data } = await axios.get(`${process.env.API_DEV}/average`);
             averageBuyPrice = data.average_buy_price;
             averageSellPrice = data.average_sell_price;
 
@@ -264,7 +260,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get(`${process.env.API_PROD}/quotes`);
+            const { data } = await axios.get(`${process.env.API_DEV}/quotes`);
             quotes = data;
 
         } catch (err) {
@@ -274,7 +270,7 @@ export const getSlippage = async (req: any, res: any) => {
         const getSlippagePercentage = (ave: number, quote: number) => {
             const result = quote - ave;
             return +((result / quote) * 100).toFixed(2);
-        };
+        }
 
         const slippageArray = quotes.map((e: any) => {
             return {

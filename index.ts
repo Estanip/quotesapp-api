@@ -8,11 +8,9 @@ const app = express();
 // Settings
 const corsOptions ={
     origin:'*', 
-    credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
-app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
