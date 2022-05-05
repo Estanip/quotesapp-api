@@ -83,10 +83,10 @@ export const getQuotes = async (req: any, res: any) => {
     try {
 
         const browser = await puppeteer.launch({
-            'args' : [
+            'args': [
                 '--no-sandbox',
                 '--disable-setuid-sandbox'
-              ]
+            ]
         });
 
         const page = await browser.newPage();
@@ -227,7 +227,7 @@ export const getAverage = async (req: any, res: any) => {
         const getAverage = (array: any[]) => {
             let sum = array.reduce((prev: any, curr: any) => prev + curr, 0)
             return +(sum / array.length).toFixed(2);
-        }
+        };
 
         const averageBuyPrice = getAverage(buyPrices)
         const averageSellPrice = getAverage(sellPrices)
@@ -274,7 +274,7 @@ export const getSlippage = async (req: any, res: any) => {
         const getSlippagePercentage = (ave: number, quote: number) => {
             const result = quote - ave;
             return +((result / quote) * 100).toFixed(2);
-        }
+        };
 
         const slippageArray = quotes.map((e: any) => {
             return {
