@@ -83,7 +83,10 @@ export const getQuotes = async (req: any, res: any) => {
     try {
 
         const browser = await puppeteer.launch({
-            args: ['--no-sandbox']
+            'args' : [
+                '--no-sandbox',
+                '--disable-setuid-sandbox'
+              ]
         });
 
         const page = await browser.newPage();
