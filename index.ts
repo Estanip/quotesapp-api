@@ -8,7 +8,7 @@ const app = express();
 // Settings
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-/* app.use((req: any, res: any, next: any) => {
+app.use((req: any, res: any, next: any) => {
     res.setHeader("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader(
@@ -24,14 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/cors', (req:any, res:any) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.send({ "msg": "This has CORS enabled 🎈" })
-}) */
-app.use(
-    cors({
-      origin: ["https://upbeat-northcutt-4650a4.netlify.app"],
-      methods: ["GET", "POST", "DELETE"],
-      credentials: true
-    })
-  );
+})
 app.use(cors({ origin: "*" }));
 
 
