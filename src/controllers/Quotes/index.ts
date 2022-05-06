@@ -87,6 +87,7 @@ export const getQuotes = async (req: any, res: any) => {
         });
 
         const page = await browser.newPage();
+        await page.setDefaultNavigationTimeout(0);
 
         let quotesArray: any = [];
 
