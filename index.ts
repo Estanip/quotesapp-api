@@ -8,12 +8,11 @@ const app = express();
 // Settings
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.options('*', cors())
-/* app.get('/cors', (req:any, res:any) => {
+app.get('/cors', (req:any, res:any) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.send({ "msg": "This has CORS enabled 🎈" })
 })
-app.use(cors()); */
+app.use(cors());
 
 // Routes
 app.use('/api', require(path.join(__dirname, '/src/routes/quotes')));
