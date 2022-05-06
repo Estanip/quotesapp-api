@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require('path');
+const sharp = require('sharp');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.get('/cors', (req:any, res:any) => {
     res.send({ "msg": "This has CORS enabled 🎈" })
 })
 app.use(cors());
+sharp.cache(false);
 
 // Routes
 app.use('/api', require(path.join(__dirname, '/src/routes/quotes')));
