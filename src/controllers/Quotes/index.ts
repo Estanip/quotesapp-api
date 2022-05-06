@@ -206,7 +206,7 @@ export const getAverage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get(`${process.env.API_DEV}/quotes`);
+            const { data } = await axios.get(`${process.env.API_PROD}/quotes`);
             quotes = data;
 
         } catch (err) {
@@ -251,7 +251,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get(`${process.env.API_DEV}/average`);
+            const { data } = await axios.get(`${process.env.API_PROD}/average`);
             averageBuyPrice = data.average_buy_price;
             averageSellPrice = data.average_sell_price;
 
@@ -261,7 +261,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const { data } = await axios.get(`${process.env.API_DEV}/quotes`);
+            const { data } = await axios.get(`${process.env.API_PROD}/quotes`);
             quotes = data;
 
         } catch (err) {
