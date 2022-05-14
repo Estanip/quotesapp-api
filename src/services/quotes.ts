@@ -1,14 +1,17 @@
-const axios = require('axios');
 const puppeteer = require('puppeteer');
+
+import { getCache, setCache } from "../helpers/redis";
 
 const minimal_args = [
     '--no-sandbox'
 ];
 
-
 export const getData = async () => {
 
     try {
+
+        const cache = await getCache('quotes');
+        if(cache) return cache;
 
         const browser = await puppeteer.launch({
             args: minimal_args
@@ -92,6 +95,10 @@ export const getData = async () => {
         } catch (err) {
             console.log(err)
         }
+
+        await browser.close();
+
+        await setCache('quotes', quotesArray);
 
         return quotesArray;
 

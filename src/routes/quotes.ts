@@ -1,11 +1,10 @@
-import { getQuotes, getAverage, getSlippage } from "../controllers/Quotes";
-import { cache } from '../helpers/cache';
+import { getAverage, getQuotes, getSlippage } from "../controllers/Quotes";
 
 const { Router } = require('express');
 const router = Router();
 
-router.get('/quotes', cache(60), getQuotes);  
-router.get('/average',cache(60), getAverage);
-router.get('/slippage', cache(60), getSlippage);
+router.get('/quotes', getQuotes);  
+router.get('/average', getAverage);
+router.get('/slippage', getSlippage);
 
 module.exports = router;

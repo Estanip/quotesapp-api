@@ -1,4 +1,4 @@
-const mcache = require('memory-cache');
+/* const mcache = require('memory-cache');
 
 export const cache = (duration:number) => {
     return(req:any, res:any, next:any) => {
@@ -16,4 +16,29 @@ export const cache = (duration:number) => {
             next()
         }
     }
+}; */
+
+/* const getExpeditiousCache = require('express-expeditious');
+
+export const cache = (time: number) => {
+
+    const expressCache = getExpeditiousCache({
+        namespace: 'expresscache',
+        defaultTtl: (time * 1000),
+        objectMode: true,
+        statusCodeExpires: {
+            404: '5 minutes',
+            500: 0
+        },
+        engine: require('expeditious-engine-redis')(
+            {
+                host: '127.0.0.1',
+                port: 6379
+            }
+        )
+    });
+
+    return expressCache;
+
 };
+ */

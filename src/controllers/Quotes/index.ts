@@ -1,16 +1,15 @@
-const axios = require('axios');
-const mcache = require('memory-cache');
+import { getCache, setCache } from '../../helpers/redis';
+import { getData } from '../../services/quotes';
 
 require('dotenv').config();
 
-import { getData } from '../../services/quotes';
 
 export const getQuotes = async (req: any, res: any) => {
 
     try {
 
         const quotesArray = await getData();
-        
+
         if (quotesArray.length > 0) {
 
             return res.status(200).send({
@@ -38,9 +37,7 @@ export const getAverage = async (req: any, res: any) => {
 
         let quotes;
 
-        const data = mcache.get('/api/quotes');
-        const dataJson = JSON.parse(data);
-        quotes = dataJson.quotesArray;
+        quotes = await getCache('quotes');
 
         const buyPrices = quotes.map((e: any) => {
             return e.buy_price;
@@ -57,6 +54,11 @@ export const getAverage = async (req: any, res: any) => {
 
         const averageBuyPrice = getAverage(buyPrices)
         const averageSellPrice = getAverage(sellPrices)
+
+        await setCache('average', {
+            "average_buy_price": averageBuyPrice,
+            "average_sell_price": averageSellPrice
+        });
 
         return res.status(200).send({
             "average_buy_price": averageBuyPrice,
@@ -80,11 +82,7 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const data = mcache.get('/api/average');
-            const average = JSON.parse(data)
-
-            averageBuyPrice = average.average_buy_price;
-            averageSellPrice = average.average_sell_price;
+            quotes = await getCache('quotes');
 
         } catch (err) {
             console.log(err)
@@ -92,10 +90,11 @@ export const getSlippage = async (req: any, res: any) => {
 
         try {
 
-            const data = mcache.get('/api/quotes');
-            const dataJson = JSON.parse(data);
-            quotes = dataJson.quotesArray;
-            
+            const average = await getCache('average');
+
+            averageBuyPrice = average.average_buy_price;
+            averageSellPrice = average.average_sell_price;
+
         } catch (err) {
             console.log(err)
         }
@@ -114,6 +113,9 @@ export const getSlippage = async (req: any, res: any) => {
                 "name": e.name
             }
         })
+
+        await setCache('slippage', slippageArray);
+
 
         return res.status(200).send(slippageArray)
 
