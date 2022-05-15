@@ -11,10 +11,6 @@ const app = express();
 app.use(responseTime());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/cors', (res:any) => {
-    res.set('Access-Control-Allow-Origin', '*');
-    res.send({ "msg": "This has CORS enabled 🎈" })
-})
 app.use(cors());
 
 // Routes
