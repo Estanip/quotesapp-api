@@ -2,11 +2,6 @@ const puppeteer = require('puppeteer');
 
 import { getCache, setCache } from "../helpers/redis";
 
-const minimal_args = [
-    '--no-sandbox',
-    "--disable-setuid-sandbox"
-];
-
 export const getData = async () => {
 
     try {
