@@ -4,7 +4,7 @@ import { Quote, Average, Slippage } from '../../interfaces/index';
 
 require('dotenv').config();
 
-export const getQuotes = async (res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { success: boolean; quotesArray: Array<Quote>; }): any; new(): any; }; }; send: (arg0: { success?: boolean; message?: string; Error?: unknown; }) => void; }) => {
+export const getQuotes = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { success: boolean; quotesArray: Array<Quote>; }): any; new(): any; }; }; send: (arg0: { success?: boolean; message?: string; Error?: unknown; }) => void; }) => {
 
     try {
 
@@ -31,7 +31,7 @@ export const getQuotes = async (res: { status: (arg0: number) => { (): any; new(
     }
 };
 
-export const getAverage = async (res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: Average): any; new(): any; }; }; send: (arg0: { Error: unknown; }) => void; }) => {
+export const getAverage = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: Average): any; new(): any; }; }; send: (arg0: { Error: unknown; }) => void; }) => {
 
     try {
 
@@ -72,7 +72,7 @@ export const getAverage = async (res: { status: (arg0: number) => { (): any; new
     }
 };
 
-export const getSlippage = async (res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: Array<Slippage>): any; new(): any; }; }; send: (arg0: { Error: unknown; }) => void; }) => {
+export const getSlippage = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: Array<Slippage>): any; new(): any; }; }; send: (arg0: { Error: unknown; }) => void; }) => {
     try {
 
         let averageBuyPrice: number;
