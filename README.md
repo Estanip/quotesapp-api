@@ -1,10 +1,10 @@
 <strong>ENPOINTS</strong>
 
 QUOTES<br>
-https://pluggy-api-challenge.herokuapp.com/api/quotes<br>
+https://api-challenge-pluggy.herokuapp.com/api/quotes<br>
 
 AVERAGE<br>
-https://pluggy-api-challenge.herokuapp.com/api/average<br>
+https://api-challenge-pluggy.herokuapp.com/api/average<br>
 
 SLIPPAGE<br>
-https://pluggy-api-challenge.herokuapp.com/api/slippage<br>
+https://api-challenge-pluggy.herokuapp.com/api/slippage<br>
