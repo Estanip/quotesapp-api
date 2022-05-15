@@ -2,7 +2,7 @@ const redis = require("redis");
 require('dotenv').config()
 
 const client = redis.createClient({
-    url: 'rediss://:p3a948e7241f940905a05d581f1b87b5068695785e512dddcbf3578339677d6ac@ec2-34-196-217-231.compute-1.amazonaws.com:23560',
+    url: process.env.REDIS_URL,
     socket: {
       tls: true,
       rejectUnauthorized: false
