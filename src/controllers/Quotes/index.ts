@@ -3,7 +3,6 @@ import { getData } from '../../services/quotes';
 
 require('dotenv').config();
 
-
 export const getQuotes = async (req: any, res: any) => {
 
     try {
@@ -104,7 +103,6 @@ export const getSlippage = async (req: any, res: any) => {
             return +((result / quote) * 100).toFixed(2);
         }
 
-
         const slippageArray = quotes.map((e: any) => {
             return {
                 "buy_price_slippage": getSlippagePercentage(averageBuyPrice, e.buy_price),
@@ -115,7 +113,6 @@ export const getSlippage = async (req: any, res: any) => {
         })
 
         await setCache('slippage', slippageArray);
-
 
         return res.status(200).send(slippageArray)
 
