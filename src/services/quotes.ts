@@ -14,11 +14,7 @@ export const getData = async () => {
         const cache = await getCache('quotes');
         if(cache) return cache;
 
-        const browser = await puppeteer.launch({
-            headless: false,
-            ignoreDefaultArgs: ["--disable-extensions"],
-            args: minimal_args
-        });
+        const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 
         const page = await browser.newPage();
         await page.setDefaultNavigationTimeout(0);
