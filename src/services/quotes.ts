@@ -3,7 +3,8 @@ const puppeteer = require('puppeteer');
 import { getCache, setCache } from "../helpers/redis";
 
 const minimal_args = [
-    '--no-sandbox'
+    '--no-sandbox',
+    "--disable-setuid-sandbox"
 ];
 
 export const getData = async () => {
@@ -14,6 +15,8 @@ export const getData = async () => {
         if(cache) return cache;
 
         const browser = await puppeteer.launch({
+            headless: false,
+            ignoreDefaultArgs: ["--disable-extensions"],
             args: minimal_args
         });
 
