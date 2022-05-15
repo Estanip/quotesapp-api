@@ -1,15 +1,13 @@
 const redis = require("redis");
 require('dotenv').config()
 
-const client = redis.createClient({
-    url: process.env.REDIS_URL,
-    socket: {
-      tls: true,
-      rejectUnauthorized: false
-    }
-});
+const client = redis.createClient({url: process.env.REDISCLOUD_URL});
 
 (async function () {
+
+    console.log(process.env.REDISCLOUD_URL)
+    console.log(typeof(process.env.REDISCLOUD_URL))
+
 
     client.on('error', (err: Error) => console.log('Redis Client Error', err));
 
