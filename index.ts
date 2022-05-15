@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require('path');
 const responseTime = require('response-time');
+require('dotenv').config()
 
 const app = express();
 

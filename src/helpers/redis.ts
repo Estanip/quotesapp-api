@@ -1,6 +1,7 @@
 const redis = require("redis");
+require('dotenv').config()
 
-const client = redis.createClient();
+const client = redis.createClient(process.env.REDISCLOUD_URL);
 
 (async function () {
 
