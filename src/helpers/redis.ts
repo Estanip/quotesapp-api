@@ -1,30 +1,30 @@
-import { createClient } from 'redis';
+const redis = require("redis");
 
-const client = createClient();
+const client = redis.createClient();
 
 (async function () {
 
-    client.on('error', (err) => console.log('Redis Client Error', err));
-    
+    client.on('error', (err: Error) => console.log('Redis Client Error', err));
+
     await client.connect();
 
 })();
 
 
-export const getCache = async (key:string) => {
+export const getCache = async (key: string) => {
 
-    const reply:any = await client.get(key);
-    
+    const reply: any = await client.get(key);
+
     return JSON.parse(reply);
 
 };
 
-export const setCache = async (key:string, data:any) => {
+export const setCache = async (key: string, data: any) => {
 
-    await client.set(key, JSON.stringify(data), 
-    {
-        EX: 60
-    });
-    
+    await client.set(key, JSON.stringify(data),
+        {
+            EX: 60
+        });
+
 
 };

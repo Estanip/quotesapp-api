@@ -1,4 +1,3 @@
 /node_modules
-/aws-node-express-api-project
 dist
 .env

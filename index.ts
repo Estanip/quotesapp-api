@@ -10,7 +10,7 @@ const app = express();
 app.use(responseTime());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/cors', (req:any, res:any) => {
+app.get('/cors', (res:any) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.send({ "msg": "This has CORS enabled 🎈" })
 })
@@ -20,7 +20,7 @@ app.use(cors());
 app.use('/api', require(path.join(__dirname, '/src/routes/quotes')));
 
 // Run server
-const port = process.env.PORT || 3008;
+const port = process.env.PORT || 3000;
 const main = async () => {
     try {
         await app.listen(port, () => {
