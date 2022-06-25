@@ -1,4 +1,4 @@
-import { getAverage, getQuotes, getSlippage } from "../controllers/Quotes";
+import { getAverage, getQuotes, getSlippage } from "../controllers/quotes";
 
 const { Router } = require('express');
 const router = Router();

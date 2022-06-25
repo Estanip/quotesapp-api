@@ -1,6 +1,6 @@
-import { getCache, setCache } from '../../helpers/redis';
-import { getData } from '../../services/quotes';
-import { Quote, Average, Slippage } from '../../interfaces/index';
+import { getCache, setCache } from '../helpers/redis';
+import { getData } from '../services/puppeteer';
+import { Quote, Average } from '../interfaces/index';
 
 require('dotenv').config();
 
@@ -12,10 +12,7 @@ export const getQuotes = async (req: any, res: { status: (arg0: number) => { ():
 
         if (quotesArray.length > 0) {
 
-            return res.status(200).send({
-                success: true,
-                quotesArray
-            });
+            return res.status(200).send(quotesArray);
 
         } else {
             return res.send({
@@ -39,6 +36,10 @@ export const getAverage = async (req: any, res: { status: (arg0: number) => { ()
 
         quotes = await getCache('quotes');
 
+        if (quotes === null) {
+            quotes = await getData()
+        }
+
         const buyPrices = quotes.map((e: any) => {
             return e.buy_price;
         })
@@ -47,13 +48,13 @@ export const getAverage = async (req: any, res: { status: (arg0: number) => { ()
             return e.sell_price;
         })
 
-        const getAverage = (array: any[]) => {
+        const setAverage = (array: any[]) => {
             let sum = array.reduce((prev: any, curr: any) => prev + curr, 0)
             return +(sum / array.length).toFixed(2);
         }
 
-        const averageBuyPrice = getAverage(buyPrices)
-        const averageSellPrice = getAverage(sellPrices)
+        const averageBuyPrice = setAverage(buyPrices)
+        const averageSellPrice = setAverage(sellPrices)
 
         await setCache('average', {
             "average_buy_price": averageBuyPrice,
@@ -72,7 +73,7 @@ export const getAverage = async (req: any, res: { status: (arg0: number) => { ()
     }
 };
 
-export const getSlippage = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: Array<Slippage>): any; new(): any; }; }; send: (arg0: { Error: unknown; }) => void; }) => {
+export const getSlippage = async (req: any, res: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { message: string; }): any; new(): any; }; }; send: (arg0: { Error: unknown; }) => void; }) => {
     try {
 
         let averageBuyPrice: number;
@@ -80,28 +81,22 @@ export const getSlippage = async (req: any, res: { status: (arg0: number) => { (
 
         let quotes;
 
-        try {
+        quotes = await getCache('quotes');
 
-            quotes = await getCache('quotes');
-
-        } catch (err) {
-            console.log(err)
+        if (quotes === null) {
+            return res.status(404).send({
+                message: "No se han encontrado cotizaciones"
+            })
         }
 
-        try {
+        let average = await getCache('average');
 
-            const average = await getCache('average');
-
-            averageBuyPrice = average.average_buy_price;
-            averageSellPrice = average.average_sell_price;
-
-        } catch (err) {
-            console.log(err)
-        }
+        averageBuyPrice = average.average_buy_price;
+        averageSellPrice = average.average_sell_price;
 
         const getSlippagePercentage = (ave: number, quote: number) => {
-            const result = ave - quote;
-            return +((result / quote) * 100).toFixed(2);
+            const result = quote - ave;
+            return +((result / ave) * 100).toFixed(2);
         }
 
         const slippageArray = quotes.map((e: any) => {
