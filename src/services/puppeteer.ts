@@ -49,6 +49,7 @@ export const getData = async () => {
             await page.goto(url);
             urlPage = await page.url();
 
+
             if (urlPage.includes('ambito') === true) {
 
                 buyPrice = await page.$$eval('[data-indice*="/dolar/informal"] span.value.data-compra', (elements: any[]) => elements.map((el: { innerText: any; }) => el.innerText))
@@ -97,16 +98,15 @@ export const getData = async () => {
                     "source": url,
                     "name": 'Cronista'
                 }
-
             }
 
-            quotesArray = [dolarQuote ? dolarQuote : {}, cronistaQuote ? cronistaQuote : {}, ambitoQuote ? ambitoQuote : {}]
+            quotesArray = [dolarQuote ? dolarQuote : {}, cronistaQuote ? cronistaQuote : {}/* , ambitoQuote ? ambitoQuote : {} */]
 
         });
 
         cluster.queue('https://www.dolarhoy.com');
         cluster.queue('https://www.cronista.com/MercadosOnline/moneda.html?id=ARSB')
-        cluster.queue('https://www.ambito.com/contenidos/dolar.html')
+        //cluster.queue('https://www.ambito.com/contenidos/dolar.html')
 
         await cluster.idle();
         await cluster.close();
